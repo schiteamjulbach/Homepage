@@ -39,3 +39,35 @@
 .event-card:hover,.signup-box{box-shadow:0 16px 42px rgba(34,41,46,.1)}
 .radio-cards input:checked+span{border-color:#c91424;background:#fff7f7}
 .mobile-admin-tabs button.active{color:#c91424;border-bottom-color:#ffd400}
+
+/* Originales Vereinslogo */
+.brand{min-width:190px}
+.brand-logo{display:block;width:190px;height:54px;object-fit:contain;object-position:left center}
+.brand.compact .brand-logo{width:176px;height:50px}
+.public-footer .brand-logo,.admin-sidebar .brand-logo{filter:brightness(0) invert(1)}
+.public-header .brand-logo,.login-page .brand-logo{filter:brightness(0)}
+
+/* Anmeldung und veranstaltungsspezifische Inhalte */
+.registration-info{border:1px solid #e2e4e6;border-left:5px solid #c91424;border-radius:12px;background:#f7f8f9;padding:20px 22px}
+.registration-info strong{display:block;font-size:17px;margin-bottom:5px;color:#22292e}
+.registration-info p{margin:0;color:#5f666c}
+.registration-copy-settings{display:grid;gap:20px}
+.registration-copy-settings>label,.event-image-settings>label{display:grid;gap:8px;font-size:14px;font-weight:750}
+.registration-copy-settings small,.event-image-settings small{color:#777;font-weight:400}
+
+/* Etwas hochformatigere Veranstaltungsbilder */
+.event-image{height:330px}
+.event-image-settings{display:grid;gap:14px}
+.event-image-settings h3{display:flex;align-items:center;gap:9px;margin:0}
+.event-image-settings h3 svg{width:20px;color:#c91424}
+.event-image-settings>p{margin:0;color:#70767c;font-size:14px}
+.event-image-settings>p:after{content:" Empfohlenes Hochformat: 1200 × 1500 px.";display:block;margin-top:4px;font-weight:750;color:#22292e}
+.event-image-settings>img{width:100%;max-width:300px;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid #dfe1e3}
+.upload-field input{padding:10px;border:1px dashed #c9cdd1;border-radius:9px;background:#f7f8f9}
+
+@media(max-width:760px){
+  .brand{min-width:152px}
+  .brand-logo{width:152px;height:44px}
+  .brand.compact .brand-logo{width:168px;height:48px}
+  .event-image{height:290px}
+}
