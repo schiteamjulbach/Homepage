@@ -108,3 +108,28 @@
   .public-footer .brand{width:280px;min-width:280px;height:100px}
   .public-footer .brand-logo{width:280px;height:100px}
 }
+
+/* Anmeldeformular im Adminbereich zuerst und mit maximalem Schreibraum */
+.registration-copy-settings{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:1fr;gap:22px}
+.registration-copy-settings>label:first-of-type textarea{min-height:260px;resize:vertical}
+.registration-copy-settings>label:last-of-type textarea{min-height:150px;resize:vertical}
+
+/* Veranstaltungsbilder: vollständiges, quadratisches 800 × 800 Format */
+.event-image{height:auto;aspect-ratio:1/1;background:#eef0f2}
+.event-image img,
+.detail-hero>img{object-fit:contain;object-position:center;transform:none}
+.event-card:hover .event-image img{transform:none}
+.detail-hero{height:auto;aspect-ratio:1/1;max-width:800px;margin-left:auto;margin-right:auto;background:#22292e}
+.event-image-settings>p:after{content:" Empfohlenes Format: 800 × 800 px. Das vollständige Bild bleibt sichtbar.";display:block;margin-top:4px;font-weight:750;color:#22292e}
+.event-image-settings>img{max-width:400px;aspect-ratio:1/1;object-fit:contain;object-position:center;background:#eef0f2}
+
+/* Footer-Logo: komplette Skispur sichtbar, nur transparente Außenfläche ausblenden */
+.public-footer .brand{width:370px;min-width:370px;height:145px;overflow:hidden}
+.public-footer .brand-logo{width:400px;height:400px;max-width:none;object-fit:contain;transform:translate(-10px,-120px)}
+
+@media(max-width:760px){
+  .event-image{height:auto;aspect-ratio:1/1}
+  .registration-copy-settings>label:first-of-type textarea{min-height:220px}
+  .public-footer .brand{width:320px;min-width:320px;height:130px}
+  .public-footer .brand-logo{width:350px;height:350px;transform:translate(-10px,-105px)}
+}
