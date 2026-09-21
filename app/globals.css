@@ -79,3 +79,32 @@
   .brand.compact .brand-logo{width:220px;height:64px}
   .event-image{height:290px}
 }
+
+/* Logo großzügiger und vollständig sichtbar */
+.public-header{height:132px}
+.public-header .brand{width:340px;min-width:340px;height:120px}
+.public-header .brand-logo{width:340px;height:120px;object-fit:cover;object-position:center center}
+.public-nav.open{top:131px}
+.public-footer .brand{width:340px;min-width:340px;height:120px}
+.public-footer .brand-logo{width:340px;height:120px;object-fit:cover;object-position:center center}
+.admin-sidebar .brand{width:230px;min-width:230px;height:84px}
+.admin-sidebar .brand-logo{width:230px;height:84px;object-fit:cover;object-position:center center}
+
+/* Footer-Texte durchgehend weiß */
+.public-footer{color:#fff}
+.public-footer p,
+.public-footer span,
+.public-footer a,
+.public-footer button,
+.public-footer strong,
+.public-footer>small{color:#fff}
+.public-footer>small{border-top-color:rgba(255,255,255,.18)}
+
+@media(max-width:760px){
+  .public-header{height:104px}
+  .public-header .brand{width:250px;min-width:250px;height:90px}
+  .public-header .brand-logo{width:250px;height:90px}
+  .public-nav.open{top:103px}
+  .public-footer .brand{width:280px;min-width:280px;height:100px}
+  .public-footer .brand-logo{width:280px;height:100px}
+}
