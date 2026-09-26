@@ -124,3 +124,11 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
 - [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+
+## Schiteam Julbach: Daten und Verwaltung
+
+Veranstaltungen, Anmeldungen, Warteliste und E-Mail-Vorlagen werden in Cloudflare D1 gespeichert. Veranstaltungsbilder liegen in R2. Die Sites-Bindings heißen DB und BUCKET. Beim ersten Aufruf werden ausschließlich der erste Kinderskikurs und zehn ausdrücklich fiktive Testteilnehmer angelegt; der Initialisierungsmarker verhindert eine erneute Anlage.
+
+Der Admin-Benutzer heißt admin. Das Passwort wird ausschließlich als Sites-Secret ADMIN_PASSWORD konfiguriert. Bei einer Änderung dieses Secrets eine neue Version veröffentlichen; bestehende Sitzungen werden dadurch ungültig. Sitzungen laufen nach acht Stunden ab. Der E-Mail-Versand ist noch nicht angebunden; gespeicherte Vorlagen allein lösen keine E-Mails aus.
+
+Prüfungen: `node node_modules/typescript/bin/tsc --noEmit` und `node tests/platform.integration.mjs`. Die Integrationstests verwenden isolierte lokale D1-/R2-Instanzen und verändern keine Produktionsdaten.
