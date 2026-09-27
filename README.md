@@ -132,3 +132,9 @@ Veranstaltungen, Anmeldungen, Warteliste und E-Mail-Vorlagen werden in Cloudflar
 Der Admin-Benutzer heißt admin. Das Passwort wird ausschließlich als Sites-Secret ADMIN_PASSWORD konfiguriert. Bei einer Änderung dieses Secrets eine neue Version veröffentlichen; bestehende Sitzungen werden dadurch ungültig. Sitzungen laufen nach acht Stunden ab. Der E-Mail-Versand ist noch nicht angebunden; gespeicherte Vorlagen allein lösen keine E-Mails aus.
 
 Prüfungen: `node node_modules/typescript/bin/tsc --noEmit` und `node tests/platform.integration.mjs`. Die Integrationstests verwenden isolierte lokale D1-/R2-Instanzen und verändern keine Produktionsdaten.
+
+### Adressregel und Anmeldezeitraum
+
+Neue öffentliche Anmeldungen benötigen Adresse (Straße/Hausnummer), PLZ und Ort. Der bisherige Schalter `onlyWaitlist` / die Spalte `only_waitlist` heißt in der Oberfläche „Warteliste für externe“: Bei Aktivierung gehen Anmeldungen außerhalb der Kombination 4162 + Julbach auf die Warteliste. Groß-/Kleinschreibung und äußere Leerzeichen werden normalisiert. Diese Regel gilt unabhängig von der allgemeinen Warteliste bei voller Kapazität. Manuelle Bestätigungen bleiben möglich und unterliegen dem Teilnehmerlimit. Bereits gespeicherte Anmeldungen werden nicht umgestuft; die neue additive Migration lässt unbekannte Adressen leer.
+
+Sind Beginn und Ende gesetzt, hat der Zeitraum Vorrang vor `active` (Beginn inklusive, Ende exklusiv). Sonst bleibt der manuelle Schalter maßgeblich, zusätzlich begrenzt durch eventuell vorhandene einzelne Zeitgrenzen. Der Server prüft den Zeitraum bei jeder Anmeldung. Der Admin-Schalter zeigt bei vollständigem Zeitraum den effektiven Status; der gespeicherte manuelle Wert bleibt für das spätere Entfernen des Zeitraums erhalten.
