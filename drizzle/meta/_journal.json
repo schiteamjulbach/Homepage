@@ -15,6 +15,13 @@
       "when": 1790530177467,
       "tag": "0001_handy_hannibal_king",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790531455082,
+      "tag": "0002_elite_triton",
+      "breakpoints": true
     }
   ]
 }
