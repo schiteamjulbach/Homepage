@@ -32,6 +32,17 @@ HTML-Seite ausgeliefert werden, Veranstaltungen und Anmeldungen jedoch nicht.
 Ohne Blob-Token sind neue Bild-Uploads nicht möglich. Variablen niemals mit
 NEXT_PUBLIC_ versehen. Nach Änderungen an Vercel-Variablen neu deployen.
 
+### Ladefehler nach dem Verbinden der Datenbank
+
+Erscheint „Die Daten konnten nicht geladen werden“ und meldet `/api/platform`
+HTTP 503 mit `Serverkonfiguration fehlt: DATABASE_URL` in den Vercel Runtime Logs,
+das Erstellungsdatum des aktiven Deployments mit dem Zeitpunkt der Neon-Verbindung
+vergleichen. Bereits laufende Deployments übernehmen später hinzugefügte
+Umgebungsvariablen nicht. Auch wenn `DATABASE_URL` jetzt für Production vorhanden
+ist, muss ein neues Production-Deployment über einen Push auf `main` oder Vercels
+Redeploy erstellt werden. Danach `/api/platform` auf HTTP 200 und die öffentliche
+Veranstaltungsübersicht prüfen. Keine Zugangsdaten in Git speichern.
+
 ## Datenbestand und Betrieb
 
 Diese Umstellung überträgt **keine bisherigen Cloudflare-Daten**. Ohne Zugriff auf
