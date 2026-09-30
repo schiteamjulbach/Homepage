@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   try {
     const object = await getImage(key);
     if (!object) return new Response('Nicht gefunden', { status: 404 });
-    return new Response(object.body, { headers: { 'Content-Type': object.contentType || 'application/octet-stream', 'Cache-Control': 'public, max-age=86400', 'X-Content-Type-Options': 'nosniff' } });
+    return new Response(object.body, { headers: { 'Content-Type': object.contentType || 'application/octet-stream', 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff' } });
   } catch {
     console.error('Image read failed');
     return new Response('Bild derzeit nicht verfügbar', { status: 503 });

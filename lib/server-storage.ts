@@ -1,9 +1,11 @@
-import { put, get } from '@vercel/blob';
-export function storageConfigured() { return !!process.env.BLOB_READ_WRITE_TOKEN; }
+import { database } from '@/lib/server-db';
+
 export async function putImage(key: string, bytes: Uint8Array, contentType: string) {
-  await put(`events/${key}`, Buffer.from(bytes), { access: 'public', addRandomSuffix: false, contentType });
+  await database().prepare('INSERT INTO images (id,content_type,data,created_at) VALUES (?,?,?,?)')
+    .bind(key, contentType, Buffer.from(bytes).toString('base64'), new Date().toISOString()).run();
 }
+
 export async function getImage(key: string) {
-  const object = await get(`events/${key}`, { access: 'public' });
-  return object?.statusCode === 200 ? { body: object.stream, contentType: object.blob.contentType } : null;
+  const image = await database().prepare('SELECT content_type,data FROM images WHERE id=?').bind(key).first<{content_type:string;data:string}>();
+  return image ? { body: new Uint8Array(Buffer.from(image.data, 'base64')), contentType: image.content_type } : null;
 }

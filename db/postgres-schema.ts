@@ -20,4 +20,10 @@ CREATE INDEX IF NOT EXISTS idx_registrations_event_status ON registrations(event
 CREATE TABLE IF NOT EXISTS sessions (hash text PRIMARY KEY, expires bigint NOT NULL, version text NOT NULL);
 CREATE TABLE IF NOT EXISTS login_attempts (key text PRIMARY KEY, count integer NOT NULL, expires bigint NOT NULL);
 CREATE TABLE IF NOT EXISTS settings (key text PRIMARY KEY, value text NOT NULL);
+CREATE TABLE IF NOT EXISTS images (
+ id text PRIMARY KEY,
+ content_type text NOT NULL,
+ data text NOT NULL,
+ created_at text NOT NULL
+);
 `;

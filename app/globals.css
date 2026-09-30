@@ -58,7 +58,7 @@
 .registration-info strong{display:block;font-size:17px;margin-bottom:5px;color:#22292e}
 .registration-info p{margin:0;color:#5f666c}
 .registration-copy-settings{display:grid;gap:20px}
-.registration-copy-settings>label,.event-image-settings>label{display:grid;gap:8px;font-size:14px;font-weight:750}
+.registration-copy-settings>label{display:grid;gap:8px;font-size:14px;font-weight:750}
 .registration-copy-settings small,.event-image-settings small{color:#777;font-weight:400}
 
 /* Etwas hochformatigere Veranstaltungsbilder */
@@ -66,10 +66,16 @@
 .event-image-settings{display:grid;gap:14px}
 .event-image-settings h3{display:flex;align-items:center;gap:9px;margin:0}
 .event-image-settings h3 svg{width:20px;color:#c91424}
-.event-image-settings>p{margin:0;color:#70767c;font-size:14px}
-.event-image-settings>p:after{content:" Empfohlenes Hochformat: 1200 × 1500 px.";display:block;margin-top:4px;font-weight:750;color:#22292e}
-.event-image-settings>img{width:100%;max-width:300px;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:1px solid #dfe1e3}
-.upload-field input{padding:10px;border:1px dashed #c9cdd1;border-radius:9px;background:#f7f8f9}
+.image-upload-control{display:grid;grid-template-columns:minmax(180px,280px) minmax(190px,1fr);gap:20px;align-items:center}
+.image-upload-control>img,.sponsor-logo-placeholder{display:block;width:100%;aspect-ratio:1/1;border:1px solid #e0e3e5;border-radius:16px;background:#f7f8f9;object-fit:contain;padding:14px}
+.image-upload-actions{display:grid;justify-items:start;gap:10px}
+.image-upload-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:10px 16px;border-radius:10px;background:#22292e;color:#fff;font-weight:800;cursor:pointer;transition:.2s ease}
+.image-upload-button:hover{background:#c91424}
+.image-upload-button[aria-disabled=true]{opacity:.65;cursor:wait}
+.image-upload-button svg{width:18px;height:18px}
+.image-upload-actions small{color:#747a81}
+.image-upload-actions small[role=alert]{color:#a90f1d}
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
 @media(max-width:760px){
   .public-header{height:78px}
@@ -120,8 +126,7 @@
 .detail-hero>img{object-fit:contain;object-position:center;transform:none}
 .event-card:hover .event-image img{transform:none}
 .detail-hero{height:auto;aspect-ratio:1/1;max-width:800px;margin-left:auto;margin-right:auto;background:#22292e}
-.event-image-settings>p:after{content:" Empfohlenes Format: 800 × 800 px. Das vollständige Bild bleibt sichtbar.";display:block;margin-top:4px;font-weight:750;color:#22292e}
-.event-image-settings>img{max-width:400px;aspect-ratio:1/1;object-fit:contain;object-position:center;background:#eef0f2}
+.event-image-settings .image-upload-control>img{max-width:400px;object-position:center;background:#eef0f2}
 
 /* Footer-Logo: komplette Skispur sichtbar, nur transparente Außenfläche ausblenden */
 .public-footer .brand{width:370px;min-width:370px;height:145px;overflow:hidden}
@@ -201,15 +206,11 @@
 .sponsor-admin-card-head h3{margin:5px 0 0;font-size:22px}
 .sponsor-order-actions{display:flex;gap:8px}
 .sponsor-order-actions svg{width:17px}
-.sponsor-admin-fields{display:grid;grid-template-columns:minmax(280px,.75fr) minmax(320px,1.25fr);gap:28px;padding-top:22px}
-.sponsor-logo-upload{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start}
-.sponsor-logo-upload>img,.sponsor-logo-placeholder{width:150px;height:112px;border:1px solid #e0e3e5;border-radius:14px;background:#f7f8f9;object-fit:contain;padding:14px}
+.sponsor-admin-fields{display:grid;grid-template-columns:minmax(420px,1.2fr) minmax(260px,.8fr);gap:28px;padding-top:22px;align-items:center}
 .sponsor-logo-placeholder{display:grid;place-items:center;color:#8b9298}
 .sponsor-logo-placeholder span{font-size:13px}
-.sponsor-logo-upload>div:last-child,.sponsor-copy-fields{display:grid;gap:14px}
-.sponsor-logo-upload label,.sponsor-copy-fields>label{display:grid;gap:7px;font-size:14px;font-weight:750}
-.sponsor-logo-upload small[role=alert]{color:#a90f1d}
-.sponsor-copy-fields .setting-row{padding:10px 0 0;border-bottom:0}
+.sponsor-copy-fields{display:grid;gap:14px}
+.sponsor-copy-fields>label{display:grid;gap:7px;font-size:14px;font-weight:750}
 .sponsor-admin-empty{padding:42px;text-align:center;display:grid;justify-items:center;gap:8px;color:#737a81}
 .sponsor-admin-empty svg{color:#c91424;width:34px;height:34px}
 .sponsor-admin-empty h3{margin:4px 0 0;color:#22292e}
@@ -220,8 +221,8 @@
 .mini-date{min-width:82px;font-size:16px;white-space:nowrap}
 .date-tile{min-width:88px;white-space:nowrap}
 
-@media(max-width:1050px){.sponsor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sponsor-admin-fields{grid-template-columns:1fr}.sponsor-logo-upload{grid-template-columns:150px minmax(0,1fr)}}
-@media(max-width:760px){.sponsors-section{padding:58px 18px 66px}.sponsors-heading{margin-bottom:28px}.sponsor-grid{grid-template-columns:1fr;gap:13px}.sponsor-card{min-height:128px}.sponsors-hero{min-height:320px;padding:54px 22px}.sponsors-hero p{font-size:16px}.sponsor-admin-card{padding:18px}.sponsor-admin-card-head{display:grid}.sponsor-logo-upload{grid-template-columns:1fr}.sponsor-logo-upload>img,.sponsor-logo-placeholder{width:100%;height:150px}.sponsor-admin-empty{padding:28px 18px}}
+@media(max-width:1050px){.sponsor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sponsor-admin-fields{grid-template-columns:1fr}.image-upload-control{grid-template-columns:minmax(160px,240px) minmax(190px,1fr)}}
+@media(max-width:760px){.sponsors-section{padding:58px 18px 66px}.sponsors-heading{margin-bottom:28px}.sponsor-grid{grid-template-columns:1fr;gap:13px}.sponsor-card{min-height:128px}.sponsors-hero{min-height:320px;padding:54px 22px}.sponsors-hero p{font-size:16px}.sponsor-admin-card{padding:18px}.sponsor-admin-card-head{display:grid}.image-upload-control{grid-template-columns:1fr}.image-upload-control>img,.sponsor-logo-placeholder{max-width:280px}.sponsor-admin-empty{padding:28px 18px}}
 
 /* Geführte Auswahl für ein- und mehrtägige Veranstaltungstermine */
 .event-date-settings{border:0;padding:20px 0 4px;margin:0;border-top:1px solid #eceef0;border-bottom:1px solid #eceef0}
