@@ -246,3 +246,66 @@
 .event-date-preview strong{font-size:18px}
 .event-date-preview span{color:#5f666c}
 @media(max-width:760px){.date-mode-choice,.event-date-inputs{grid-template-columns:1fr}}
+
+/* Abschließende Detailanpassungen für Veranstaltungen und Vereinslogo */
+.admin-event-list>button{
+  grid-template-columns:100px minmax(190px,1.6fr) minmax(130px,.8fr) 90px 24px;
+  column-gap:20px;
+}
+.mini-date{
+  width:82px;
+  min-width:82px;
+}
+.date-tile{
+  left:22px;
+  top:22px;
+  min-width:116px;
+  padding:16px 18px;
+  border-radius:12px;
+  font-size:27px;
+}
+.date-tile small{
+  margin-top:8px;
+  font-size:13px;
+}
+.public-footer .brand{
+  width:340px;
+  min-width:340px;
+  height:120px;
+}
+.public-footer .brand.compact .brand-logo{
+  width:340px;
+  height:120px;
+  max-width:none;
+  object-fit:cover;
+  object-position:center;
+  transform:none;
+}
+
+@media(max-width:760px){
+  .admin-event-list>button{
+    grid-template-columns:88px minmax(0,1fr) 22px;
+    column-gap:14px;
+  }
+  .mini-date{
+    width:82px;
+    min-width:82px;
+  }
+  .date-tile{
+    left:16px;
+    top:16px;
+    min-width:104px;
+    padding:14px 15px;
+    font-size:24px;
+  }
+  .date-tile small{font-size:12px}
+  .public-footer .brand{
+    width:250px;
+    min-width:250px;
+    height:90px;
+  }
+  .public-footer .brand.compact .brand-logo{
+    width:250px;
+    height:90px;
+  }
+}
