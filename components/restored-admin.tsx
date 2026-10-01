@@ -11,12 +11,13 @@ import {ParticipantEditor,EventImage,SponsorLogoUpload} from '@/components/admin
 import {RegistrationTiming} from '@/components/registration-timing';
 import {workbook} from '@/lib/export-xlsx';
 import {participantColumns,participantRows} from '@/lib/participant-export';
+import {defaultEventDescription,defaultEventInfo} from '@/lib/event-defaults';
 type AdminTab='overview'|'participants'|'settings'|'emails'|'export'|'sponsors'|'privacy'|'imprint';
 type EventItem=any;
 type Sponsor={id:string;name:string;logoUrl:string};
 const Context=createContext<any>(null);
 const useAdmin=()=>useContext(Context);
-const freshEvent={title:'Neue Veranstaltung',detailHeading:'Gemeinsam besser Ski fahren.',date:'TERMIN',dateLong:'Termin folgt',eventDateMode:'single',eventStartDate:'',eventEndDate:'',place:'Hochficht',description:'',info:[],registrationInfo:'',skillLevels:['Anfänger','Fortgeschritten'],imagePosition:'50% 50%',imageUrl:'/schiteam-momente.jpeg',showSpots:true,capacity:40,active:false,visible:false,waitlist:true,manualWaitlist:false,onlyWaitlist:false,starts:'',ends:'',confirmed:0,waiting:0,spots:40};
+const freshEvent={title:'Neue Veranstaltung',detailHeading:'Gemeinsam besser Ski fahren.',date:'TERMIN',dateLong:'Termin folgt',eventDateMode:'single',eventStartDate:'',eventEndDate:'',place:'Hochficht',description:defaultEventDescription,info:[...defaultEventInfo],registrationInfo:'',skillLevels:['Anfänger','Fortgeschritten'],imagePosition:'50% 50%',imageUrl:'/schiteam-momente.jpeg',showSpots:true,capacity:40,active:false,visible:false,waitlist:true,manualWaitlist:false,onlyWaitlist:false,starts:'',ends:'',confirmed:0,waiting:0,spots:40};
 async function request(action:string,data:Record<string,unknown>={}){const response=await fetch('/api/platform',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,...data})});const result:any=await response.json();if(!response.ok)throw new Error(result.error||'Anfrage fehlgeschlagen');return result;}
 function Brand({compact=false}:{compact?:boolean}){return <div className={compact?'brand compact':'brand'}><img className="brand-logo" src="/schiteam-logo.png" alt="Schiteam Union Julbach"/></div>}
 function statusClass(status:string){if(status==='Anmeldung offen'||status==='confirmed')return 'status open';if(status==='Warteliste'||status==='waitlist')return 'status wait';if(status==='Anmeldung startet bald')return 'status soon';return 'status closed'}
