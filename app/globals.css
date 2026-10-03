@@ -358,6 +358,18 @@
   .login-card{zoom:1.2}
 }
 
+/* Admininhalte nutzen die verfügbare Breite und wachsen auf großen Monitoren mit. */
+.admin-content{max-width:none;min-width:0}
+.admin-main{min-width:0}
+.admin-content .panel{min-width:0}
+.event-list-main{min-width:0;overflow-wrap:anywhere}
+@media(min-width:1051px){
+  .admin-content{zoom:clamp(1,calc((100vw - 270px) / 1500px),2)}
+}
+@media(min-width:1051px) and (max-width:1439px){
+  .dashboard-grid{grid-template-columns:1fr}
+}
+
 /* Gemeinsame, responsive Proportionen für die öffentliche Homepage */
 :root{--public-display-size:clamp(48px,7vw,86px);--public-copy-size:clamp(18px,1.35vw,22px)}
 .intro h1,.sponsors-hero h1,.sponsors-heading h2{font-size:var(--public-display-size)}
