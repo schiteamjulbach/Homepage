@@ -177,13 +177,13 @@
 @media(max-width:760px){.public-footer .brand{width:280px;height:100px}.public-footer .brand-logo{height:100px}.legal-dialog{padding:24px}}
 
 /* Sponsoren: gleiche Vereinsästhetik, ruhige Logo-Flächen mit weichen Ecken */
-.sponsors-section{padding:82px clamp(24px,8vw,130px) 92px;background:linear-gradient(180deg,#fff 0%,#f5f6f7 100%);border-top:1px solid #eceef0}
-.sponsors-heading{max-width:760px;margin:0 auto 38px;text-align:center}
+.sponsors-section{padding:82px clamp(24px,4vw,80px) 92px;background:linear-gradient(180deg,#fff 0%,#f5f6f7 100%);border-top:1px solid #eceef0}
+.sponsors-heading{max-width:1220px;margin:0 auto 48px;text-align:center}
 .sponsors-heading .eyebrow{justify-content:center}
-.sponsors-heading h2{font-size:clamp(36px,4vw,52px);letter-spacing:-.05em;line-height:1;margin:14px 0 16px;color:#22292e}
+.sponsors-heading h2{font-size:clamp(48px,7vw,86px);letter-spacing:-.065em;line-height:.95;margin:18px 0 24px;color:#22292e}
 .sponsors-heading p{margin:0;color:#687078;font-size:17px}
-.sponsor-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;max-width:1220px;margin:auto}
-.sponsor-card{flex:0 1 calc((100% - 54px)/4);min-width:0;height:180px;border:1px solid #e4e6e8;border-radius:18px;background:#fff;box-shadow:0 12px 30px rgba(34,41,46,.07);display:flex;align-items:center;justify-content:center;padding:18px;position:relative;text-decoration:none;color:#22292e;overflow:hidden}
+.sponsor-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;max-width:1600px;margin:auto}
+.sponsor-card{flex:0 1 calc((100% - 54px)/4);min-width:0;height:360px;border:1px solid #e4e6e8;border-radius:18px;background:#fff;box-shadow:0 12px 30px rgba(34,41,46,.07);display:flex;align-items:center;justify-content:center;padding:18px;position:relative;text-decoration:none;color:#22292e;overflow:hidden}
 .sponsor-card:hover{transform:translateY(-3px);border-color:#d4d7da;box-shadow:0 18px 38px rgba(34,41,46,.11)}
 .sponsor-card img{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center;transform:scale(1.2);transform-origin:center}
 .sponsor-name{text-align:center;font-weight:850;font-size:19px;line-height:1.2}
@@ -195,7 +195,7 @@
 .sponsors-hero:after{content:"";width:390px;height:390px;border:82px solid rgba(201,20,36,.16);border-radius:50%;position:absolute;right:-70px;top:-95px}
 .sponsors-hero>*{position:relative;z-index:1}
 .sponsors-hero .light{color:#ffd400}
-.sponsors-hero h1{font-size:clamp(46px,6vw,76px);line-height:.96;letter-spacing:-.06em;margin:18px 0 20px;max-width:800px}
+.sponsors-hero h1{font-size:clamp(48px,7vw,86px);line-height:.95;letter-spacing:-.065em;margin:18px 0 24px;max-width:900px}
 .sponsors-hero h1 em{font-style:normal;color:#ffd400}
 .sponsors-hero p{max-width:650px;margin:0;color:#d0d4d7;font-size:18px}
 
@@ -218,16 +218,16 @@
 .add-sponsor-button{margin-top:18px}
 
 /* Über uns: Vorstandsmitglieder in ruhigen, hochformatigen Karten */
-.board-section{padding:82px clamp(24px,8vw,130px) 100px;background:linear-gradient(180deg,#fff 0%,#f5f6f7 100%);border-top:1px solid #eceef0}
-.board-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));justify-content:center;gap:22px;max-width:1220px;margin:auto}
-.board-card{min-width:0;border:1px solid #e4e6e8;border-radius:20px;background:#fff;box-shadow:0 12px 30px rgba(34,41,46,.07);overflow:hidden;color:#22292e;text-align:center;transition:.2s ease}
+.board-section{padding:82px clamp(24px,4vw,80px) 100px;background:linear-gradient(180deg,#fff 0%,#f5f6f7 100%);border-top:1px solid #eceef0}
+.board-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:22px;max-width:1600px;margin:auto}
+.board-card{flex:0 1 calc((100% - 66px)/4);min-width:0;border:1px solid #e4e6e8;border-radius:20px;background:#fff;box-shadow:0 12px 30px rgba(34,41,46,.07);overflow:hidden;color:#22292e;text-align:center;transition:.2s ease}
 .board-card:hover{transform:translateY(-3px);border-color:#d4d7da;box-shadow:0 18px 38px rgba(34,41,46,.11)}
-.board-card>img,.board-photo-placeholder{display:block;width:100%;aspect-ratio:3/4;background:#eef0f2;border-bottom:1px solid #e4e6e8;object-fit:cover;object-position:center}
+.board-card>img,.board-photo-placeholder{display:block;width:100%;aspect-ratio:3/5;background:#eef0f2;border-bottom:1px solid #e4e6e8;object-fit:cover;object-position:center}
 .board-photo-placeholder{display:grid;place-items:center;align-content:center;gap:8px;color:#8b9298}
 .board-photo-placeholder svg{width:42px;height:42px;color:#c91424}
-.board-card-copy{display:grid;gap:4px;padding:20px 16px 22px}
-.board-card-copy strong{font-size:20px;line-height:1.2;font-weight:850}
-.board-card-copy span{color:#727980;font-size:15px}
+.board-card-copy{display:grid;gap:6px;padding:24px 16px 26px;overflow-wrap:anywhere}
+.board-card-copy strong{font-size:26px;line-height:1.2;font-weight:850}
+.board-card-copy span{color:#727980;font-size:18px}
 .about-hero{background:linear-gradient(120deg,#20272c 0%,#293138 62%,#341f23 100%)}
 .board-admin-fields{align-items:start}
 .portrait-upload.image-upload-control>img,.portrait-upload .sponsor-logo-placeholder{aspect-ratio:3/4;object-fit:cover;padding:0;max-height:420px}
@@ -237,8 +237,8 @@
 .mini-date{min-width:82px;font-size:16px;white-space:nowrap}
 .date-tile{min-width:88px;white-space:nowrap}
 
-@media(max-width:1050px){.sponsor-card{flex-basis:calc((100% - 18px)/2)}.board-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sponsor-admin-fields{grid-template-columns:1fr}.image-upload-control{grid-template-columns:minmax(160px,240px) minmax(190px,1fr)}}
-@media(max-width:760px){.sponsors-section,.board-section{padding:58px 18px 66px}.sponsors-heading{margin-bottom:28px}.sponsor-grid{gap:13px}.sponsor-card{flex-basis:calc((100% - 13px)/2);height:clamp(118px,28vw,160px);padding:clamp(9px,2.5vw,16px);border-radius:14px}.sponsor-card img{transform:scale(1.25)}.board-grid{gap:13px}.board-card{border-radius:14px}.board-card-copy{padding:14px 8px 16px}.board-card-copy strong{font-size:clamp(15px,4.5vw,19px)}.board-card-copy span{font-size:13px}.sponsors-hero{min-height:320px;padding:54px 22px}.sponsors-hero p{font-size:16px}.sponsor-admin-card{padding:18px}.sponsor-admin-card-head{display:grid}.image-upload-control{grid-template-columns:1fr}.image-upload-control>img,.sponsor-logo-placeholder{max-width:280px}.sponsor-admin-empty{padding:28px 18px}}
+@media(max-width:1050px){.sponsor-card{flex-basis:calc((100% - 18px)/2)}.board-card{flex-basis:calc((100% - 22px)/2)}.sponsor-admin-fields{grid-template-columns:1fr}.image-upload-control{grid-template-columns:minmax(160px,240px) minmax(190px,1fr)}}
+@media(max-width:760px){.sponsors-section,.board-section{padding:58px 18px 66px}.sponsors-heading{margin-bottom:36px}.sponsors-heading h2,.sponsors-hero h1{font-size:50px}.sponsor-grid{gap:13px}.sponsor-card{flex-basis:calc((100% - 13px)/2);height:clamp(236px,56vw,320px);padding:clamp(9px,2.5vw,16px);border-radius:14px}.sponsor-card img{transform:scale(1.25)}.board-grid{gap:13px}.board-card{flex-basis:calc((100% - 13px)/2);border-radius:14px}.board-card-copy{padding:20px 10px 22px}.board-card-copy strong{font-size:clamp(18px,5vw,24px)}.board-card-copy span{font-size:15px}.sponsors-hero{min-height:320px;padding:54px 22px}.sponsors-hero p{font-size:16px}.sponsor-admin-card{padding:18px}.sponsor-admin-card-head{display:grid}.image-upload-control{grid-template-columns:1fr}.image-upload-control>img,.sponsor-logo-placeholder{max-width:280px}.sponsor-admin-empty{padding:28px 18px}}
 
 /* Geführte Auswahl für ein- und mehrtägige Veranstaltungstermine */
 .event-date-settings{border:0;padding:20px 0 4px;margin:0;border-top:1px solid #eceef0;border-bottom:1px solid #eceef0}
