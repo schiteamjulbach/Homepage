@@ -380,7 +380,7 @@
   :root{--public-display-size:clamp(36px,12vw,50px);--public-copy-size:17px}
   .public-header{grid-template-columns:minmax(0,1fr) auto;gap:12px}
   .public-header .brand{width:min(250px,calc(100vw - 88px));min-width:0}
-  .public-header .brand-logo{width:100%;object-fit:contain}
+  .public-header .brand-logo{width:100%;object-fit:cover}
   .mobile-menu{grid-column:2}
   .public-nav.open{top:103px;padding:14px 18px}
   .section-heading h2{font-size:clamp(32px,9vw,44px)}
