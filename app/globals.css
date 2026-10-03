@@ -342,6 +342,22 @@
   background:linear-gradient(0deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.34) 58%,transparent 100%);
 }
 
+/* Veranstaltungen: eine Karte am Handy, drei bis vier auf größeren Anzeigen. */
+.event-grid,.events-section .section-heading{max-width:1600px}
+@media(min-width:761px){
+  .event-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .event-card{min-width:0}
+  .event-card-body{padding:22px 20px 24px}
+  .card-topline{flex-wrap:wrap;row-gap:8px}
+  .event-card h3{overflow-wrap:anywhere}
+}
+@media(min-width:1600px){
+  .event-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(min-width:1051px){
+  .login-card{zoom:1.2}
+}
+
 /* Gemeinsame, responsive Proportionen für die öffentliche Homepage */
 :root{--public-display-size:clamp(48px,7vw,86px);--public-copy-size:clamp(18px,1.35vw,22px)}
 .intro h1,.sponsors-hero h1,.sponsors-heading h2{font-size:var(--public-display-size)}
