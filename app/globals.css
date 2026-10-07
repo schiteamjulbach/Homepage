@@ -344,6 +344,29 @@
   background:linear-gradient(0deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.34) 58%,transparent 100%);
 }
 
+/* Eigenständiges Aktionsmenü für jede Veranstaltung */
+.admin-event-row{width:100%;display:grid;grid-template-columns:minmax(0,1fr) 48px;align-items:center;border-bottom:1px solid #eee;background:#fff}
+.admin-event-row:hover,.admin-event-row.selected{background:#fff9f7}
+.event-select-button{min-width:0;display:grid;grid-template-columns:100px minmax(190px,1.6fr) minmax(130px,.8fr) 90px;align-items:center;column-gap:20px;border:0;background:transparent;padding:14px 0 14px 18px;text-align:left}
+.event-actions-trigger{width:36px;height:36px;display:grid;place-items:center;justify-self:center;border:0;border-radius:8px;background:transparent}
+.event-actions-trigger:hover,.event-actions-trigger[data-state="open"]{background:#f0e8e6}
+.event-actions-trigger svg{width:21px}
+
+@media(max-width:760px){
+  .admin-event-row{grid-template-columns:minmax(0,1fr) 44px}
+  .event-select-button{grid-template-columns:88px minmax(0,1fr);column-gap:14px;padding:12px 0 12px 12px}
+  .event-select-button .status,.event-select-button .event-list-count{display:none}
+}
+
+/* Öffentliches Veranstaltungsdatum zwischen Titel und Ort */
+.event-card h3{margin:12px 0 5px}
+.event-card-body .event-full-date,.event-card-body .event-location{display:flex;align-items:center;gap:7px}
+.event-card-body .event-full-date{margin:0;color:#4f565d;font-size:14px}
+.event-card-body .event-location{margin:4px 0 0}
+.event-card-body .event-full-date svg,.event-card-body .event-location svg{flex:none}
+.event-card-body .text-link{margin-top:16px}
+.date-tile small{letter-spacing:0;text-align:center;text-transform:none;line-height:1.15}
+
 /* Veranstaltungen: eine Karte am Handy, drei bis vier auf größeren Anzeigen. */
 .event-grid,.events-section .section-heading{max-width:2000px}
 @media(min-width:761px){
