@@ -365,7 +365,8 @@
 .event-card-body .event-location{margin:4px 0 0}
 .event-card-body .event-full-date svg,.event-card-body .event-location svg{flex:none}
 .event-card-body .text-link{margin-top:16px}
-.date-tile small{letter-spacing:0;text-align:center;text-transform:none;line-height:1.15}
+.date-tile{min-width:98px;padding:11px 12px 10px;border-radius:11px;font-size:22px;line-height:.95;box-shadow:0 4px 14px rgba(18,24,29,.12)}
+.date-tile small{margin-top:7px;font-size:14px;font-weight:850;letter-spacing:.02em;text-align:center;text-transform:none;line-height:1}
 
 /* Veranstaltungen: eine Karte am Handy, drei bis vier auf größeren Anzeigen. */
 .event-grid,.events-section .section-heading{max-width:2000px}
