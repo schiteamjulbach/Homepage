@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     images: [{ url: "/schiteam-momente.jpeg", alt: "Schiteam Julbach im Schnee" }],
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/favicon.svg?v=schiteam-black-20261013",
+    shortcut: "/favicon.svg?v=schiteam-black-20261013",
   },
 };
 
