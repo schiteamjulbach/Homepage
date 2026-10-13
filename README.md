@@ -58,7 +58,7 @@ nicht überschreiten. Die Sperre gilt für die ganze Plattform und eignet sich f
 kleine Vereinsveranstaltungen; bei hohem Schreibaufkommen kann sie Wartezeit erzeugen.
 
 Bilder dürfen maximal 4 MB groß sein, damit Uploads unter Vercels Request-Limit
-bleiben. Gespeicherte E-Mail-Vorlagen lösen weiterhin noch keinen E-Mail-Versand aus.
+bleiben. Auch Mail-Anhänge dürfen jeweils maximal 4 MB groß sein.
 
 ## Lokal entwickeln und prüfen
 
@@ -100,3 +100,31 @@ Quellen: [Postgres in Vercel](https://vercel.com/docs/postgres),
 Neue öffentliche Anmeldungen benötigen Adresse (Straße/Hausnummer), PLZ und Ort. Der bisherige Schalter `onlyWaitlist` / die Spalte `only_waitlist` heißt in der Oberfläche „Warteliste für externe“: Bei Aktivierung gehen Anmeldungen außerhalb der Kombination 4162 + Julbach auf die Warteliste. Groß-/Kleinschreibung und äußere Leerzeichen werden normalisiert. Diese Regel gilt unabhängig von der allgemeinen Warteliste bei voller Kapazität. Manuelle Bestätigungen bleiben möglich und unterliegen dem Teilnehmerlimit. Bereits gespeicherte Anmeldungen werden nicht umgestuft; die neue additive Migration lässt unbekannte Adressen leer.
 
 Sind Beginn und Ende gesetzt, hat der Zeitraum Vorrang vor `active` (Beginn inklusive, Ende exklusiv). Sonst bleibt der manuelle Schalter maßgeblich, zusätzlich begrenzt durch eventuell vorhandene einzelne Zeitgrenzen. Der Server prüft den Zeitraum bei jeder Anmeldung. Der Admin-Schalter zeigt bei vollständigem Zeitraum den effektiven Status; der gespeicherte manuelle Wert bleibt für das spätere Entfernen des Zeitraums erhalten.
+
+## Gmail und automatische Anhänge
+
+Unter **E-Mails** für Bestätigung und Warteliste getrennt Anhänge hochladen und
+**Vorlagen speichern** klicken. Die Vorlagen gelten für alle Veranstaltungen.
+Maximal fünf Dateien pro Vorlage, je 4 MB und zusammen 10 MB. Anhänge bleiben
+in der privaten Postgres-Datenbank; Downloads sind nur für angemeldete Admins
+möglich. Entfernen trennt die Datei von der Vorlage, die gespeicherte Datei bleibt
+vorerst in der Datenbank.
+
+Für den Versand die Gmail API in einem Google-Cloud-Projekt aktivieren und einen
+OAuth-Client anlegen. Das Vereinskonto einmal mit dem Scope
+`https://www.googleapis.com/auth/gmail.send` und Offline-Zugriff autorisieren.
+Client-ID, Client-Secret und den dadurch erhaltenen Refresh-Token als
+`GMAIL_CLIENT_ID`, `GMAIL_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN` ausschließlich in
+den Server-Umgebungsvariablen setzen. Außerdem `GMAIL_SENDER` auf die E-Mail-Adresse
+des autorisierten Vereinskontos setzen und neu deployen. Ein Google-OAuth-Projekt
+im externen Testmodus eignet sich nicht für dauerhaften Betrieb, da Refresh-Tokens
+ablaufen können. Anleitung: https://developers.google.com/identity/protocols/oauth2/web-server
+
+Neue öffentliche und manuell erfasste Anmeldungen erhalten die passende Vorlage.
+Bei Übernahme von der Warteliste oder einer Statusänderung wird erneut die zum
+neuen Status passende Mail versendet. Reine Datenkorrekturen und wiederholte
+Anmeldeanfragen lösen keinen erneuten Versand aus. Fehler beim Gmail-Versand
+verwerfen die gespeicherte Anmeldung nicht; die API gibt `mailStatus: failed`
+zurück und der Adminbereich zeigt den Fehler. Es gibt noch keine automatische
+Wiederholung fehlgeschlagener Mails. Ohne Gmail-Konfiguration ist
+`mailStatus: not_configured`; die Anhangverwaltung bleibt nutzbar.

@@ -455,3 +455,5 @@
 @keyframes logo-intro-zoom{from{transform:scale(.82);opacity:0}20%{opacity:1}to{transform:scale(1.08);opacity:1}}
 @keyframes logo-intro-failsafe{to{visibility:hidden;pointer-events:none}}
 @media(prefers-reduced-motion:reduce){.logo-intro{transition:none}.logo-intro-image{animation:none}}
+
+.email-attachments{display:grid;gap:12px;border-top:1px solid #e4e5e7;padding-top:20px}.email-attachments small{color:#666}.email-attachments ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}.email-attachments li{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.email-attachments li a{flex:1;overflow-wrap:anywhere;color:#d94134}.email-attachments li button{margin-left:auto}

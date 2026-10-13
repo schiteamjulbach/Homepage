@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SITE_URL, organizationJsonLd, serializeJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Veranstaltungen | Schiteam Julbach",
-  description: "Skikurse, Trainings und Vereinsveranstaltungen des Schiteam Julbach.",
+  description: "Entdecke Skikurse, Trainings und Vereinsveranstaltungen des Schiteam Julbach. Alle Termine, Informationen und die Online-Anmeldung auf einen Blick.",
+  alternates: { canonical: `${SITE_URL}/` },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "de_AT",
+    siteName: "Schiteam Julbach",
+    title: "Veranstaltungen | Schiteam Julbach",
+    description: "Skikurse, Trainings und Vereinsveranstaltungen des Schiteam Julbach.",
+    url: `${SITE_URL}/`,
+    images: [{ url: "/schiteam-momente.jpeg", alt: "Schiteam Julbach im Schnee" }],
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
@@ -17,7 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }} />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,20 @@
+import { database } from '@/lib/server-db';
+import { initialEvents } from '@/lib/initial-events';
+import { defaultEventDescription, defaultEventInfo } from '@/lib/event-defaults';
+import { registrationWindow } from '@/lib/registration-rules';
+const eventDefaultsMigrationKey='event_defaults_2026_10_01';
+export async function seed(){
+ const db=database();
+ const initialized=await db.prepare("SELECT value FROM settings WHERE key='initialized'").first();
+ if(!initialized){
+  await db.batch([...initialEvents.map(e=>db.prepare("INSERT INTO events (id,data,capacity,active,visible,waitlist,only_waitlist,starts,ends) SELECT ?,?,?,?,1,1,?,'','' WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key='initialized') ON CONFLICT DO NOTHING").bind(e.id,JSON.stringify(e),40,['Anmeldung geschlossen','Anmeldung startet bald','Ausgebucht'].includes(e.status)?0:1,e.status==='Warteliste'?1:0)),...Array.from({length:10},(_,index)=>{const n=String(index+1).padStart(2,'0'),now=new Date().toISOString();return db.prepare("INSERT INTO registrations (id,event_id,first_name,last_name,birth_date,skill,email,phone,note,status,consent_at,created_at) SELECT ?,1,?,?,'2016-01-01',?,?,'0000000000','Fiktiver Testdatensatz – keine echte Anmeldung','confirmed',?,? WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key='initialized') ON CONFLICT DO NOTHING").bind('00000000-0000-4000-8000-'+String(index+1).padStart(12,'0'),'Testperson',n,initialEvents[0].skillLevels[index%initialEvents[0].skillLevels.length],'test'+n+'@example.invalid',now,now)}),db.prepare("INSERT INTO settings (key,value) VALUES ('initialized','1') ON CONFLICT DO NOTHING"),db.prepare("INSERT INTO settings (key,value) VALUES (?, '1') ON CONFLICT DO NOTHING").bind(eventDefaultsMigrationKey),db.prepare("SELECT setval(pg_get_serial_sequence('events','id'), GREATEST((SELECT COALESCE(MAX(id),1) FROM events),1))")]);
+  return;
+ }
+ if(await db.prepare('SELECT value FROM settings WHERE key=?').bind(eventDefaultsMigrationKey).first())return;
+ const row=await db.prepare('SELECT data FROM events WHERE id=1').first<{data:string}>();
+ const statements=[];
+ if(row){const event={...JSON.parse(row.data),description:defaultEventDescription,info:[...defaultEventInfo]};statements.push(db.prepare('UPDATE events SET data=? WHERE id=1').bind(JSON.stringify(event)));}
+ statements.push(db.prepare("INSERT INTO settings (key,value) VALUES (?, '1') ON CONFLICT DO NOTHING").bind(eventDefaultsMigrationKey));
+ await db.batch(statements);
+}
+export async function eventList(all=false){const rows=await database().prepare(`SELECT e.*, (SELECT COUNT(*) FROM registrations r WHERE r.event_id=e.id AND r.status='confirmed') AS confirmed, (SELECT COUNT(*) FROM registrations r WHERE r.event_id=e.id AND r.status='waitlist') AS waiting FROM events e ${all?'':'WHERE e.visible=1'} ORDER BY e.id`).all<any>();const events=rows.results.map(row=>{const data=JSON.parse(row.data),remaining=Math.max(0,row.capacity-row.confirmed),now=new Date().toISOString();let status='Anmeldung offen';const window=registrationWindow({active:!!row.active,starts:row.starts,ends:row.ends},Date.parse(now));if(window.before&&(window.scheduled||row.active))status='Anmeldung startet bald';else if(!window.active)status='Anmeldung geschlossen';else if(data.manualWaitlist)status='Warteliste';else if(!remaining)status=row.waitlist||row.only_waitlist?'Warteliste':'Ausgebucht';return {...data,id:row.id,capacity:row.capacity,active:!!row.active,registrationActive:window.active,scheduled:window.scheduled,visible:!!row.visible,waitlist:!!row.waitlist,manualWaitlist:!!data.manualWaitlist,onlyWaitlist:!!row.only_waitlist,starts:row.starts,ends:row.ends,confirmed:Number(row.confirmed),waiting:Number(row.waiting),spots:remaining,status};});return events.sort((left,right)=>{const leftDate=typeof left.eventStartDate==='string'?left.eventStartDate:'',rightDate=typeof right.eventStartDate==='string'?right.eventStartDate:'';if(leftDate&&rightDate)return leftDate.localeCompare(rightDate)||left.id-right.id;if(leftDate)return -1;if(rightDate)return 1;return left.id-right.id;});}
