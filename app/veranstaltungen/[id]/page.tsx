@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Home from "@/components/public-site";
 import { getPublicPlatform } from "@/lib/public-platform";
-import { ORGANIZATION_ID, SITE_URL, eventUrl, serializeJsonLd } from "@/lib/seo";
+import { ORGANIZATION_ID, SHARE_IMAGE, SITE_URL, eventUrl, serializeJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }> };
@@ -23,7 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${event.title} | Schiteam Julbach`,
     description,
     alternates: { canonical: eventUrl(event.id) },
-    openGraph: { title: event.title, description, url: eventUrl(event.id) },
+    openGraph: { title: event.title, description, url: eventUrl(event.id), images: [SHARE_IMAGE] },
+    twitter: { card: "summary_large_image", title: event.title, description, images: [SHARE_IMAGE] },
   };
 }
 

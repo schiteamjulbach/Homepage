@@ -12,7 +12,7 @@ const outfile = path.resolve('.sites-runtime/seo-test.mjs');
 await build({
   stdin: {
     contents: `export {default as home} from './app/page';
-      export {default as layout} from './app/layout';
+      export {default as layout, metadata as homeMetadata} from './app/layout';
       export {default as detail, generateMetadata} from './app/veranstaltungen/[id]/page';
       export {default as sitemap} from './app/sitemap';
       export {default as robots} from './app/robots';
@@ -39,6 +39,11 @@ globalThis.__postgresTestDb = db;
 process.env.DATABASE_URL = 'postgresql://test:test@localhost/test';
 try {
   const seo = await import(pathToFileURL(outfile).href);
+  const shareImage = seo.homeMetadata.openGraph.images[0];
+  assert.equal(shareImage.url, 'https://www.schiteam-julbach.at/schiteam-share-logo.png');
+  assert.equal(shareImage.width, 1200);
+  assert.equal(shareImage.height, 630);
+  assert.deepEqual(seo.homeMetadata.twitter.images, [shareImage]);
   const home = renderToStaticMarkup(seo.layout({ children: await seo.home() }));
   assert.match(home, /Kinderskikurs/);
   assert.match(home, /href="\/veranstaltungen\/1"/);
@@ -52,6 +57,8 @@ try {
   const props = { params: Promise.resolve({ id: '1' }) };
   const metadata = await seo.generateMetadata(props);
   assert.match(metadata.title, /Kinderskikurs/);
+  assert.deepEqual(metadata.openGraph.images, [shareImage]);
+  assert.deepEqual(metadata.twitter.images, [shareImage]);
   assert.equal(metadata.alternates.canonical, 'https://www.schiteam-julbach.at/veranstaltungen/1');
   const detail = renderToStaticMarkup(await seo.detail(props));
   const event = JSON.parse(detail.match(/<script type="application\/ld\+json">(.*?)<\/script>/)[1]);
