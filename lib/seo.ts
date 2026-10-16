@@ -1,5 +1,11 @@
 export const SITE_URL = "https://www.schiteam-julbach.at";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+export const SHARE_IMAGE = {
+  url: `${SITE_URL}/schiteam-share-logo.png`,
+  width: 1200,
+  height: 630,
+  alt: "Schiteam Union Julbach – schwarzes Logo auf weißem Hintergrund",
+};
 
 export function eventUrl(id: number) {
   return `${SITE_URL}/veranstaltungen/${id}`;

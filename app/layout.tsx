@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SITE_URL, organizationJsonLd, serializeJsonLd } from "@/lib/seo";
+import { SHARE_IMAGE, SITE_URL, organizationJsonLd, serializeJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -15,7 +15,13 @@ export const metadata: Metadata = {
     title: "Veranstaltungen | Schiteam Julbach",
     description: "Skikurse, Trainings und Vereinsveranstaltungen des Schiteam Julbach.",
     url: `${SITE_URL}/`,
-    images: [{ url: "/schiteam-momente.jpeg", alt: "Schiteam Julbach im Schnee" }],
+    images: [SHARE_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Veranstaltungen | Schiteam Julbach",
+    description: "Skikurse, Trainings und Vereinsveranstaltungen des Schiteam Julbach.",
+    images: [SHARE_IMAGE],
   },
   icons: {
     icon: "/favicon.svg?v=schiteam-black-20261013",
