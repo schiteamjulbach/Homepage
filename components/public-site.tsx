@@ -16,7 +16,7 @@ import { LogoIntro } from "@/components/logo-intro";
 type View = "events" | "sponsors" | "about" | "detail" | "signup" | "success" | "login" | "admin";
 
 type EventStatus = "Anmeldung offen" | "Anmeldung startet bald" | "Warteliste" | "Ausgebucht" | "Anmeldung geschlossen";
-export type EventItem = { id:number; title:string;detailHeading?:string; date:string; dateLong:string; place:string; status:EventStatus; spots?:number;onlyWaitlist?:boolean;manualWaitlist?:boolean;waitlist?:boolean;starts?:string;ends?:string;eventStartDate?:string;eventEndDate?:string;imageUrl?:string;showSpots?:boolean; imagePosition:string; description:string; info:string[]; registrationInfo:string; skillLevels:string[] };
+export type EventItem = { id:number; title:string;detailHeading?:string; date:string; dateLong:string; place:string; status:EventStatus; spots?:number;onlyWaitlist?:boolean;manualWaitlist?:boolean;waitlist?:boolean;starts?:string;ends?:string;eventStartDate?:string;eventEndDate?:string;imageUrl?:string;showSpots?:boolean; imagePosition:string; description:string; info:string[]; registrationInfo:string; skillLevelsEnabled?:boolean; skillLevels:string[] };
 export type Sponsor = {id:string;name:string;logoUrl:string};
 export type BoardMember = {id:string;name:string;role:string;photoUrl:string;qualifications?:string[]};
 
