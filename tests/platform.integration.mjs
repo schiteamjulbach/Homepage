@@ -30,6 +30,14 @@ await post('saveEvent',{event:{...event,skillLevelsEnabled:true}});
 check((await post('register',{...withoutSkill,requestId:crypto.randomUUID(),skill:'Unknown'})).status===400,'Reenabled skills reject invalid selection');
 check((await post('register',{...withoutSkill,requestId:crypto.randomUUID()})).status===400,'Reenabled skills require selection');
 await (await mf.getDatabase()).prepare('DELETE FROM registrations').run();
+const adminOnlyEvent={...event,active:false,visible:false,starts:'',ends:'',skillLevelsEnabled:false};
+check((await post('saveEvent',{event:adminOnlyEvent})).status===200,'Close and hide event for manual enrollment');
+const manualPerson={...withoutSkill,status:'confirmed'};
+check((await post('saveParticipant',{person:manualPerson})).status===200,'Admin can add confirmed participant to closed hidden event');
+check((await post('saveParticipant',{person:{...manualPerson,status:'waitlist'}})).status===200,'Admin can add waitlist participant to closed hidden event');
+check((await post('register',{...withoutSkill,requestId:crypto.randomUUID()})).status===400,'Closed hidden event rejects public signup');
+await post('saveEvent',{event});
+await (await mf.getDatabase()).prepare('DELETE FROM registrations').run();
 const uploaded=[];
 for(const name of ['bestätigung.pdf','warteliste.txt']){const form=new FormData();form.append('attachment',new File(['Datei '+name],name));const response=await mf.dispatchFetch('http://localhost/api/platform',{method:'POST',headers:{cookie,origin:'http://localhost'},body:form});check(response.status===200,'Attachment uploads');uploaded.push((await response.json()).attachment);}
 const templates={success:'Hallo {{vorname}}, {{veranstaltung}}',wait:'Warteliste {{nachname}}',successAttachments:[uploaded[0]],waitAttachments:[uploaded[1]]};

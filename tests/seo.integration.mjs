@@ -70,6 +70,22 @@ try {
   assert.match(detail, /Wichtige Informationen/);
   assert.equal(JSON.parse(seo.serializeJsonLd({ name: '</script><script>' })).name, '</script><script>');
   assert.ok(!seo.serializeJsonLd({ name: '</script>' }).includes('<'));
+  for (const [active, capacity, waitlist, manual, expected] of [
+    [1, 40, 1, false, 'Anmeldung geöffnet'],
+    [1, 40, 1, true, 'Anmeldung geöffnet'],
+    [1, 1, 1, false, 'Anmeldung geöffnet'],
+    [1, 1, 0, false, 'Anmeldung geschlossen'],
+    [0, 40, 1, false, 'Anmeldung geschlossen'],
+  ]) {
+    const row = await seo.database().prepare('SELECT data FROM events WHERE id=1').first();
+    const data = {...JSON.parse(row.data), manualWaitlist:manual};
+    await seo.database().prepare('UPDATE events SET data=?,active=?,capacity=?,waitlist=? WHERE id=1').bind(JSON.stringify(data),active,capacity,waitlist).run();
+    for (const html of [renderToStaticMarkup(await seo.home()),renderToStaticMarkup(await seo.detail(props))]) {
+      assert.match(html, new RegExp('class="status (open|closed)">'+expected+'</span>'));
+      assert.doesNotMatch(html, /class="status (wait|soon)"/);
+      assert.doesNotMatch(html, />Für Warteliste anmelden|>Platz auf der Warteliste sichern/);
+    }
+  }
   await seo.database().prepare('UPDATE events SET visible=0 WHERE id=1').run();
   assert.equal((await seo.sitemap()).length, 1);
   await assert.rejects(() => seo.detail(props), /NOT_FOUND/);
