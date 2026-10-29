@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import type { EmailAttachment } from '@/lib/email-attachments';
 
 export function EmailAttachments({files,onChange,onBusy,disabled}:{files:EmailAttachment[];onChange:(files:EmailAttachment[])=>void;onBusy:(busy:boolean)=>void;disabled:boolean}) {
+  const fileInput=useRef<HTMLInputElement>(null);
   const [uploading,setUploading]=useState(false),[error,setError]=useState('');
   async function upload(file?:File){
     if(!file)return;
@@ -12,5 +13,5 @@ export function EmailAttachments({files,onChange,onBusy,disabled}:{files:EmailAt
     setUploading(true);onBusy(true);
     try{const form=new FormData();form.append('attachment',file);const response=await fetch('/api/platform',{method:'POST',body:form});const data=await response.json() as {error?:string;attachment:EmailAttachment};if(!response.ok)throw new Error(data.error||'Upload fehlgeschlagen.');onChange([...files,data.attachment]);}catch(error){setError((error as Error).message);}finally{setUploading(false);onBusy(false);}
   }
-  return <div className="email-attachments"><strong>Anhänge</strong><small>Diese Dateien werden nur mit dieser Nachricht für den ausgewählten Kurs verschickt.</small><ul>{files.map(file=><li key={file.id}><a href={'/api/platform?attachment='+file.id}>{file.name}</a><small>{(file.size/1000000).toLocaleString('de-AT',{maximumFractionDigits:2})} MB</small><Button type="button" variant="outline" disabled={disabled||uploading} onClick={()=>onChange(files.filter(item=>item.id!==file.id))} aria-label={`${file.name} entfernen`}>Entfernen</Button></li>)}</ul><label>Anhang hinzufügen<input type="file" disabled={disabled||uploading||files.length>=5} onChange={event=>{void upload(event.target.files?.[0]);event.target.value='';}}/></label><small>{uploading?'Wird hochgeladen …':'Maximal 5 Dateien, je 4 MB und insgesamt 10 MB. Danach „Vorlagen speichern“ klicken.'}</small>{error&&<p role="alert">{error}</p>}</div>;
+  return <div className="email-attachments"><strong>Anhänge</strong><small>Diese Dateien werden nur mit dieser Nachricht für den ausgewählten Kurs verschickt.</small><ul>{files.map(file=><li key={file.id}><a href={'/api/platform?attachment='+file.id}>{file.name}</a><small>{(file.size/1000000).toLocaleString('de-AT',{maximumFractionDigits:2})} MB</small><Button type="button" variant="outline" disabled={disabled||uploading} onClick={()=>onChange(files.filter(item=>item.id!==file.id))} aria-label={`${file.name} entfernen`}>Entfernen</Button></li>)}</ul><Button type="button" variant="outline" style={{justifySelf:'start'}} disabled={disabled||uploading||files.length>=5} onClick={()=>fileInput.current?.click()}>Anhang hinzufügen</Button><input ref={fileInput} type="file" hidden aria-label="Anhang auswählen" disabled={disabled||uploading||files.length>=5} onChange={event=>{void upload(event.target.files?.[0]);event.target.value='';}}/><small>{uploading?'Wird hochgeladen …':'Maximal 5 Dateien, je 4 MB und insgesamt 10 MB. Danach „Vorlagen speichern“ klicken.'}</small>{error&&<p role="alert">{error}</p>}</div>;
 }
