@@ -74,8 +74,8 @@ try {
     [1, 40, 1, false, 'Anmeldung geöffnet'],
     [1, 40, 1, true, 'Anmeldung geöffnet'],
     [1, 1, 1, false, 'Anmeldung geöffnet'],
-    [1, 1, 0, false, 'Anmeldung geschlossen'],
-    [0, 40, 1, false, 'Anmeldung geschlossen'],
+    [1, 1, 0, false, 'Anmeldung noch nicht geöffnet'],
+    [0, 40, 1, false, 'Anmeldung noch nicht geöffnet'],
   ]) {
     const row = await seo.database().prepare('SELECT data FROM events WHERE id=1').first();
     const data = {...JSON.parse(row.data), manualWaitlist:manual};
