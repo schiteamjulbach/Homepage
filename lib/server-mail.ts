@@ -13,7 +13,8 @@ export async function registrationMail(id:string):Promise<'sent'|'not_configured
     if(!person)return 'failed';
     const event=await database().prepare('SELECT data FROM events WHERE id=?').bind(Number(person.event_id)).first<{data:string}>();
     const settings=await database().prepare("SELECT value FROM settings WHERE key='emails'").first<{value:string}>();
-    const emails=settings?JSON.parse(settings.value):{},details=event?JSON.parse(event.data):{};
+    const courseSettings=await database().prepare('SELECT value FROM settings WHERE key=?').bind('emails_event_'+person.event_id).first<{value:string}>();
+    const emails=courseSettings?JSON.parse(courseSettings.value):settings?JSON.parse(settings.value):{},details=event?JSON.parse(event.data):{};
     const kind=person.status==='confirmed'?'success':'wait';
     const placeholders:Record<string,string>={vorname:person.first_name,nachname:person.last_name,veranstaltung:details.title||'',datum:details.dateLong||''};
     const render=(value:string)=>value.replace(/\{\{(vorname|nachname|veranstaltung|datum)\}\}/g,(_,key)=>placeholders[key]);
