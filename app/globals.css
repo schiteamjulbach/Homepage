@@ -457,3 +457,160 @@
 @media(prefers-reduced-motion:reduce){.logo-intro{transition:none}.logo-intro-image{animation:none}}
 
 .email-attachments{display:grid;gap:12px;border-top:1px solid #e4e5e7;padding-top:20px}.email-attachments small{color:#666}.email-attachments ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}.email-attachments li{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.email-attachments li a{flex:1;overflow-wrap:anywhere;color:#d94134}.email-attachments li button{margin-left:auto}
+
+/* Abgestimmte helle Vereinsoberfläche – ausschließlich Darstellung, keine Logik. */
+:root{
+  --schiteam-red:#c91424;
+  --schiteam-yellow:#ffd400;
+  --schiteam-ink:#22292e;
+  --schiteam-muted:#687176;
+  --schiteam-line:#d9dcde;
+  --schiteam-paper:#fff;
+  --background:#fff;
+  --foreground:#22292e;
+  --primary:#c91424;
+  --primary-foreground:#fff;
+  --sidebar:#fff;
+  --sidebar-foreground:#22292e;
+  --sidebar-accent:#f3f4f4;
+  --sidebar-accent-foreground:#22292e;
+  --sidebar-border:#d9dcde;
+}
+body{background:var(--schiteam-paper);color:var(--schiteam-ink);font-family:"Segoe UI Variable Text","Segoe UI",Arial,sans-serif;font-weight:430}
+h1,h2,h3,h4,.public-header,.public-nav,.eyebrow,.status,.text-link,.public-footer strong,.admin-header,.admin-title-row,.panel-heading{font-family:"Segoe UI Variable Display","Segoe UI",Arial,sans-serif}
+
+/* Kopfzeile: weiß, ruhig und mit vollständig sichtbarem Vereinslogo. */
+.public-header{height:104px;padding:0 max(48px,calc((100vw - 1500px)/2));grid-template-columns:260px 1fr 260px;gap:42px;background:#fff;border-bottom:1px solid var(--schiteam-line);backdrop-filter:none}
+.public-header .brand{width:210px;min-width:210px;height:66px;overflow:hidden}
+.public-header .brand-logo{width:210px;height:66px;object-fit:contain;object-position:center;transform:scale(3.15);transform-origin:center;filter:brightness(0)}
+.public-nav{justify-content:center;gap:38px}
+.public-nav a,.public-nav button{color:var(--schiteam-ink);font-size:14px;font-weight:720;padding:39px 0}
+.public-nav .active:after{height:3px;background:var(--schiteam-yellow)}
+.header-season{color:var(--schiteam-muted);font-size:12px}
+.header-season button{border:1px solid #b9bec1;border-radius:0;color:var(--schiteam-ink);min-height:44px;padding:9px 14px}
+
+/* Heller Startbereich mit rotem Markenmoment statt dunkler Fläche. */
+.intro{min-height:calc(100svh - 104px);padding:88px max(48px,calc((100vw - 1500px)/2));align-items:center;background:linear-gradient(90deg,#fff 0 58%,var(--schiteam-red) 58% 100%);color:var(--schiteam-ink)}
+.intro:after{width:42%;height:100%;right:0;top:0;border:0;border-radius:0;background:repeating-radial-gradient(ellipse at 45% 42%,transparent 0 72px,rgba(255,255,255,.2) 73px 75px,transparent 76px 108px);opacity:.85}
+.intro:before{content:"SNOW · FUN · FRIENDS";position:absolute;right:24px;top:36px;z-index:2;writing-mode:vertical-rl;color:#fff;font-size:12px;font-weight:800;letter-spacing:.16em}
+.intro>div:first-child{max-width:58%;padding-right:70px}
+.intro .eyebrow{color:var(--schiteam-ink)}
+.intro h1{font-size:clamp(70px,7.1vw,124px);line-height:.82;letter-spacing:-.068em;font-weight:850;margin:26px 0 34px}
+.intro h1 em{color:var(--schiteam-yellow)}
+.intro>div>p{color:#5f686d;font-size:18px;max-width:570px}
+.intro-stat{align-self:flex-end;position:relative;z-index:2;color:#fff;margin:0 24px 24px 0}
+.intro-stat>span{color:var(--schiteam-yellow)}
+.intro-stat p{color:#fff!important}
+
+/* Veranstaltungen als klare Informationszeilen; alle vorhandenen Angaben bleiben sichtbar. */
+.events-section{padding:94px max(48px,calc((100vw - 1500px)/2)) 112px;background:#fff}
+.section-heading{max-width:1500px;margin-bottom:48px;padding-top:24px;border-top:1px solid #cfd3d5}
+.section-heading h2{font-size:clamp(52px,5.4vw,82px);font-weight:780;letter-spacing:-.052em;color:var(--schiteam-ink)}
+.section-heading>p{color:var(--schiteam-muted)}
+.event-grid{display:grid;grid-template-columns:1fr;gap:14px;max-width:1500px}
+.event-card{min-height:230px;border:1px solid var(--schiteam-line);border-radius:0;box-shadow:none;display:grid;grid-template-columns:minmax(0,1fr);overflow:hidden;transition:transform .2s,border-color .2s}
+.event-card:hover{transform:translateY(-2px);border-color:#aeb3b6;box-shadow:none}
+.event-card .event-image{display:none}
+.event-card-body{padding:38px 310px 38px 34px;display:grid;align-content:center;position:relative;min-height:230px}
+.card-topline{justify-content:flex-start;gap:24px;margin-bottom:18px}
+.status{padding:0;border-radius:0;background:transparent!important;font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.status:before{content:"";width:9px;height:9px;border-radius:50%;margin-right:9px;box-shadow:0 0 0 6px currentColor;opacity:.88}
+.status.open{color:#23a461}.status.closed{color:var(--schiteam-red)}
+.spots{color:var(--schiteam-muted);font-size:14px}
+.event-card h3{font-size:clamp(30px,3vw,48px);font-weight:760;letter-spacing:-.04em;margin:0 0 16px;color:var(--schiteam-ink)}
+.event-card-body .event-full-date,.event-card-body .event-location{color:#4f585d;font-size:15px;margin:3px 0}
+.event-card-body .event-full-date svg,.event-card-body .event-location svg{color:var(--schiteam-red)}
+.event-card-body .text-link{position:absolute;right:0;top:0;bottom:0;width:276px;margin:0;padding:30px;background:var(--schiteam-red);color:#fff;display:flex;justify-content:center;align-items:center;text-align:center;font-size:17px;transition:background .2s,transform .2s}
+.event-card-body .text-link:hover{gap:8px;background:#e0192d;transform:translateY(-2px)}
+
+/* Sponsoren, Kapitel und Vorstand durchgehend hell. */
+.sponsors-section,.board-section{padding:94px max(48px,calc((100vw - 1500px)/2)) 112px;background:#fff;border-top:1px solid var(--schiteam-line)}
+.sponsors-heading{max-width:1500px;text-align:left;margin-bottom:58px;padding-top:26px;border-top:1px solid #cfd3d5}
+.sponsors-heading .eyebrow{justify-content:flex-start}
+.sponsors-heading h2{font-size:clamp(52px,5.4vw,82px);font-weight:780;color:var(--schiteam-ink);margin:16px 0 20px}
+.sponsors-heading p{color:var(--schiteam-muted);font-size:17px;max-width:620px}
+.sponsor-card{border:1px solid var(--schiteam-line);border-radius:14px;box-shadow:none}
+.sponsor-card:hover{transform:translateY(-2px);box-shadow:none;border-color:#aeb3b6}
+.sponsors-hero{min-height:calc(100svh - 104px);padding:90px max(48px,calc((100vw - 1500px)/2));background:linear-gradient(90deg,#fff 0 58%,var(--schiteam-red) 58% 100%);color:var(--schiteam-ink)}
+.sponsors-hero:after{width:42%;height:100%;right:0;top:0;border:0;border-radius:0;background:repeating-radial-gradient(ellipse at 45% 42%,transparent 0 72px,rgba(255,255,255,.2) 73px 75px,transparent 76px 108px)}
+.sponsors-hero:before{content:"SNOW · FUN · FRIENDS";position:absolute;right:24px;top:36px;z-index:2;writing-mode:vertical-rl;color:#fff;font-size:12px;font-weight:800;letter-spacing:.16em}
+.sponsors-hero>*{max-width:54%}
+.sponsors-hero .light{color:var(--schiteam-ink)}
+.sponsors-hero h1{font-size:clamp(70px,7.1vw,124px);font-weight:850;color:var(--schiteam-ink)}
+.sponsors-hero h1 em{color:var(--schiteam-yellow)}
+.sponsors-hero p{color:#5f686d}
+.board-grid{max-width:1500px;gap:20px}
+.board-card{border:1px solid var(--schiteam-line);border-radius:0;box-shadow:none;text-align:left}
+.board-card:hover{transform:translateY(-2px);box-shadow:none;border-color:#aeb3b6}
+.board-card-copy strong{color:var(--schiteam-ink)}
+.board-card-copy span,.board-qualifications{color:var(--schiteam-muted)}
+
+/* Vereinsabschluss und Footer gemäß Markenboard. */
+.club-strip{background:var(--schiteam-red);padding:78px max(48px,calc((100vw - 1500px)/2));color:#fff}
+.club-strip .light{color:var(--schiteam-yellow)}
+.club-strip h2{font-weight:430;letter-spacing:-.045em}
+.public-footer{min-height:390px;background:var(--schiteam-ink);padding:68px max(48px,calc((100vw - 1500px)/2)) 30px;grid-template-columns:1.35fr 1fr .8fr;gap:90px;color:#fff}
+.public-footer .brand{width:220px;min-width:220px;height:82px;overflow:hidden;margin-bottom:14px}
+.public-footer .brand.compact .brand-logo{width:220px;height:82px;max-width:none;object-fit:contain;object-position:center;transform:scale(3.15);transform-origin:center;filter:brightness(0) invert(1)}
+.public-footer p{font-size:17px;line-height:1.58}
+.public-footer strong{font-size:18px}
+.public-footer a,.public-footer span,.public-footer button{font-size:15px}
+
+/* Termin, Anmeldung und Bestätigung: weiße Grundflächen, unveränderte Inhalte. */
+.detail-page,.form-page,.success-page{background:#fff;color:var(--schiteam-ink)}
+.detail-page{max-width:1500px;padding-top:48px}
+.detail-hero{border-radius:0;border:1px solid var(--schiteam-line);background:#fff}
+.detail-layout{grid-template-columns:minmax(0,1fr) 420px;gap:90px}
+.detail-layout article h2{font-size:clamp(46px,5vw,72px);font-weight:780}
+.signup-box,.registration-form>section,.confirmation-card{background:#fff;border-radius:0;border-color:var(--schiteam-line);box-shadow:none}
+.signup-box{border-top:6px solid var(--schiteam-red)}
+.signup-box button,.registration-form button[type="submit"],.success-page>button{background:var(--schiteam-red);color:#fff;border-radius:0}
+.form-section-title>span{background:var(--schiteam-red)}
+.registration-info{background:#fff;border-radius:0}
+
+/* Anmeldung und Admin bleiben funktional, erhalten aber die helle Oberfläche. */
+.login-page,.admin-shell{background:#fff}
+.login-card,.panel,.stat-grid article,.table-card,.connection-card{border-radius:0;box-shadow:none}
+.admin-sidebar{background:#fff;color:var(--schiteam-ink);border-right:1px solid var(--schiteam-line)}
+.admin-sidebar .brand-logo{filter:brightness(0);object-fit:contain;transform:scale(3.15);transform-origin:center}
+.sidebar-brand,.sidebar-bottom{border-color:var(--schiteam-line)}
+.season-select small,.admin-sidebar nav>small,.admin-user small,.admin-user svg{color:var(--schiteam-muted)}
+.season-select button{background:#fff;color:var(--schiteam-ink);border-color:#b9bec1;border-radius:0}
+.admin-sidebar nav>button,.sidebar-bottom>button{color:var(--schiteam-muted);border-radius:0}
+.admin-sidebar nav>button:hover,.sidebar-bottom>button:hover{background:#f3f4f4;color:var(--schiteam-ink)}
+.admin-sidebar nav>button.active{background:var(--schiteam-red);color:#fff}
+.admin-sidebar nav>button span{background:#edf0f1;color:var(--schiteam-ink)}
+.admin-user>span{background:var(--schiteam-yellow);color:var(--schiteam-ink)}
+.admin-header{background:#fff;border-color:var(--schiteam-line)}
+.admin-main{background:#fff}
+.admin-content{background:#fff}
+
+@media(max-width:1280px){
+  .public-header{grid-template-columns:minmax(0,1fr) auto auto;padding-inline:28px}
+  .public-nav.open{top:103px;border-bottom:1px solid var(--schiteam-line);box-shadow:none}
+}
+@media(max-width:760px){
+  .public-header{height:86px;padding:0 20px}
+  .public-header .brand{width:176px;min-width:176px;height:58px}
+  .public-header .brand-logo{width:176px;height:58px}
+  .public-nav.open{top:85px}
+  .intro,.sponsors-hero{min-height:calc(100svh - 86px);padding:56px 20px 0;background:#fff;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}
+  .intro>div:first-child,.sponsors-hero>*{max-width:none;padding-right:0}
+  .intro h1,.sponsors-hero h1{font-size:clamp(52px,15vw,78px);margin-top:24px}
+  .intro:after,.sponsors-hero:after{position:relative;order:4;display:block;width:calc(100% + 40px);height:260px;min-height:260px;right:auto;top:auto;margin:42px -20px 0;background:var(--schiteam-red);opacity:1}
+  .intro:before{right:12px;top:auto;bottom:24px}
+  .sponsors-hero:before{right:12px;top:auto;bottom:24px}
+  .intro-stat{display:none}
+  .events-section,.sponsors-section,.board-section{padding:66px 20px 78px}
+  .section-heading,.sponsors-heading{display:block;margin-bottom:34px;padding-top:20px}
+  .section-heading h2,.sponsors-heading h2{font-size:46px}
+  .event-card{min-height:0}
+  .event-card-body{padding:28px 20px 0;min-height:0}
+  .event-card h3{font-size:32px}
+  .event-card-body .text-link{position:relative;right:auto;top:auto;bottom:auto;width:calc(100% + 40px);min-height:96px;margin:26px -20px 0;padding:20px}
+  .club-strip{padding:64px 20px}
+  .public-footer{min-height:0;padding:60px 20px 28px;grid-template-columns:1fr;gap:38px}
+  .public-footer>small{grid-column:1}
+  .detail-layout{grid-template-columns:1fr;padding-inline:0}
+  .admin-sidebar .brand-logo{transform:scale(3.15)}
+}
