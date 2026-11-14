@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 760" fill="none">
+  <style>
+    .contour{stroke:rgba(255,255,255,.22);stroke-width:1.4}
+    .track{stroke:#ffd400;stroke-width:5;stroke-linecap:round;stroke-dasharray:1300;stroke-dashoffset:1300;animation:draw 1.8s 1.05s cubic-bezier(.2,.75,.25,1) forwards}
+    .point{fill:#ffd400;stroke:#c91424;stroke-width:7;opacity:0;animation:point .35s 1.95s ease forwards}
+    .gate{opacity:0;animation:gate .38s ease forwards}
+    .gate line{stroke:#fff;stroke-width:5;stroke-linecap:round}.gate rect{stroke:#fff;stroke-width:3}
+    .gate.red rect{fill:#9d0b21}.gate.blue rect{fill:#0878ff}
+    .g1{animation-delay:1.85s}.g2{animation-delay:2s}.g3{animation-delay:2.15s}.g4{animation-delay:2.3s}.g5{animation-delay:2.45s}
+    .p2{animation-delay:2.1s}.p3{animation-delay:2.25s}.p4{animation-delay:2.4s}.p5{animation-delay:2.55s}
+    @keyframes draw{to{stroke-dashoffset:0}}@keyframes point{to{opacity:1}}@keyframes gate{to{opacity:1}}
+    @media(prefers-reduced-motion:reduce){.track{animation:none;stroke-dashoffset:0}.point,.gate{animation:none;opacity:1}}
+  </style>
+  <g class="contour">
+    <path d="M-40 115C87 28 214 43 300 132C391 226 450 238 720 80"/><path d="M-70 185C77 81 230 91 323 181C418 274 489 284 743 135"/><path d="M-100 258C69 137 242 146 349 241C459 339 527 345 764 208"/><path d="M-120 338C55 207 254 213 376 318C495 421 571 419 790 294"/><path d="M-133 429C69 274 270 286 402 398C531 507 612 505 812 393"/><path d="M-151 527C65 370 294 374 431 488C571 604 655 597 835 495"/><path d="M-170 634C61 471 305 475 459 596C614 718 709 700 861 613"/>
+  </g>
+  <text x="662" y="735" text-anchor="end" fill="rgba(255,255,255,.10)" font-family="Arial,sans-serif" font-size="190" font-weight="900">26/27</text>
+  <path class="track" d="M480 -30C503 99 426 137 386 224C331 344 489 386 427 492C381 570 288 589 307 790"/>
+  <circle class="point" cx="466" cy="72" r="10"/><circle class="point p2" cx="398" cy="205" r="10"/><circle class="point p3" cx="414" cy="348" r="10"/><circle class="point p4" cx="421" cy="493" r="10"/><circle class="point p5" cx="331" cy="632" r="10"/>
+  <g class="gate red g1" transform="translate(426 108) rotate(17)"><line x1="-34" y1="-48" x2="-34" y2="48"/><line x1="34" y1="-48" x2="34" y2="48"/><rect x="-34" y="-28" width="68" height="26"/></g>
+  <g class="gate blue g2" transform="translate(373 248) rotate(-13)"><line x1="-34" y1="-48" x2="-34" y2="48"/><line x1="34" y1="-48" x2="34" y2="48"/><rect x="-34" y="-28" width="68" height="26"/></g>
+  <g class="gate red g3" transform="translate(443 389) rotate(14)"><line x1="-34" y1="-48" x2="-34" y2="48"/><line x1="34" y1="-48" x2="34" y2="48"/><rect x="-34" y="-28" width="68" height="26"/></g>
+  <g class="gate blue g4" transform="translate(397 532) rotate(-15)"><line x1="-34" y1="-48" x2="-34" y2="48"/><line x1="34" y1="-48" x2="34" y2="48"/><rect x="-34" y="-28" width="68" height="26"/></g>
+  <g class="gate red g5" transform="translate(307 668) rotate(12)"><line x1="-34" y1="-48" x2="-34" y2="48"/><line x1="34" y1="-48" x2="34" y2="48"/><rect x="-34" y="-28" width="68" height="26"/></g>
+</svg>
