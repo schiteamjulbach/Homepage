@@ -527,7 +527,7 @@ h1,h2,h3,h4,.public-header,.public-nav,.eyebrow,.status,.text-link,.public-foote
 .status:before{content:"";width:9px;height:9px;border-radius:50%;margin-right:9px;box-shadow:0 0 0 6px currentColor;opacity:.88}
 .status.open{color:#23a461}.status.closed{color:var(--schiteam-red)}
 .spots{color:var(--schiteam-muted);font-size:14px}
-.event-card h3{grid-column:1;grid-row:2;align-self:start;font-size:clamp(28px,2.5vw,40px);font-weight:760;letter-spacing:-.04em;margin:0;padding:0 32px 21px;color:var(--schiteam-ink);border-right:1px solid var(--schiteam-line)}
+.event-card h3{grid-column:1;grid-row:2;align-self:start;font-size:clamp(28px,2.5vw,40px);font-weight:760;line-height:1.02;letter-spacing:-.04em;margin:0;padding:0 32px 21px;color:var(--schiteam-ink);border-right:1px solid var(--schiteam-line)}
 .event-card-body .event-full-date,.event-card-body .event-location{color:#4f585d;font-size:15px;margin:0;padding-inline:32px}
 .event-card-body .event-full-date{grid-column:2;grid-row:1;align-self:end;padding-bottom:7px}
 .event-card-body .event-location{grid-column:2;grid-row:2;align-self:start;padding-top:7px}
