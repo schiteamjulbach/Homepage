@@ -55,7 +55,14 @@ function EventsOverview({onSelect,events,sponsors}:{onSelect:(e:EventItem)=>void
   </section>
   <section className="events-section" id="veranstaltungen">
    <div className="section-heading"><div><span className="eyebrow">VERANSTALTUNGEN</span><h2>Das steht als Nächstes an</h2></div><p>Alle Termine der Saison 2026/27 auf einen Blick.</p></div>
-   <div className="event-grid">{events.map(event=>{const date=shortDateParts(event.date);return <article className="event-card" key={event.id}><a className="event-image" href={`/veranstaltungen/${event.id}`} aria-label={event.title}><img src={event.imageUrl||"/schiteam-momente.jpeg"} alt="Schiteam Julbach im Schnee" style={{objectPosition:event.imagePosition}}/><span className="date-tile">{date.days}<small>{date.month}</small></span></a><div className="event-card-body"><div className="card-topline"><PublicRegistrationStatus status={event.status}/>{event.showSpots!==false&&event.spots!==undefined&&<span className="spots"><Users size={15}/>{event.spots} Plätze frei</span>}</div><h3>{event.title}</h3><p className="event-full-date"><CalendarDays size={16}/>{event.dateLong}</p><p className="event-location"><MapPin size={16}/>{event.place}</p><a className="text-link" style={{textDecoration:"none"}} href={`/veranstaltungen/${event.id}`} aria-label={`${event.title} ansehen`}>Termin ansehen <ArrowRight size={17}/></a></div></article>})}</div>
+   <div className="event-grid">{events.map(event=>{const date=shortDateParts(event.date);return <article className="event-card" key={event.id}>
+    <a className="event-image" href={`/veranstaltungen/${event.id}`} aria-label={event.title}><img src={event.imageUrl||"/schiteam-momente.jpeg"} alt="Schiteam Julbach im Schnee" style={{objectPosition:event.imagePosition}}/><span className="date-tile">{date.days}<small>{date.month}</small></span></a>
+    <div className="event-card-body">
+     <div className="event-card-main"><div className="card-topline"><PublicRegistrationStatus status={event.status}/>{event.showSpots!==false&&event.spots!==undefined&&<span className="spots"><Users size={15}/>{event.spots} Plätze frei</span>}</div><h3>{event.title}</h3></div>
+     <div className="event-card-facts"><p className="event-full-date"><CalendarDays size={16}/>{event.dateLong}</p><p className="event-location"><MapPin size={16}/>{event.place}</p></div>
+     <a className="text-link" style={{textDecoration:"none"}} href={`/veranstaltungen/${event.id}`} aria-label={`${event.title} ansehen`}>Termin ansehen <ArrowRight size={17}/></a>
+    </div>
+   </article>})}</div>
   </section>
   <SponsorsSection sponsors={sponsors}/>
   <section id="verein" className="club-strip"><div><span className="eyebrow light">SCHITEAM JULBACH</span><h2>Ehrenamtlich.<br/>Sportlich. Miteinander.</h2></div><p>Wir bringen Kinder, Jugendliche und Erwachsene mit Begeisterung in den Schnee – und schaffen Erlebnisse, die verbinden.</p></section>
