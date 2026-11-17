@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import styles from "@/components/sponsor-card.module.css";
 
 type Sponsor = { id: string; name: string; logoUrl: string };
 
@@ -36,17 +37,16 @@ function visibleLogo(image: HTMLImageElement) {
 }
 
 export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
-  const [logo, setLogo] = useState<{ source: string; ratio: number } | null>(null);
+  const [logo, setLogo] = useState<{ url: string; source: string; ratio: number } | null>(null);
   useEffect(() => {
     let active = true;
-    setLogo(null);
     if (!sponsor.logoUrl) return;
     const image = new Image();
     image.crossOrigin = "anonymous";
     image.onload = () => {
       try {
         const result = visibleLogo(image);
-        if (active && result) setLogo(result);
+        if (active && result) setLogo({ url: sponsor.logoUrl, ...result });
       } catch {
         // External images without canvas access retain their original display.
       }
@@ -54,8 +54,11 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
     image.src = sponsor.logoUrl;
     return () => { active = false; image.onload = null; };
   }, [sponsor.logoUrl]);
-  const style = { "--logo-width": Math.max(1, Math.min(2, (logo?.ratio || 1) / 2)) } as CSSProperties;
-  return <div className="sponsor-card" style={style}>
-    {sponsor.logoUrl ? <img src={logo?.source || sponsor.logoUrl} alt={`Logo von ${sponsor.name}`} /> : <span className="sponsor-name">{sponsor.name}</span>}
+  const activeLogo = logo?.url === sponsor.logoUrl ? logo : null;
+  const visibleRatio = Math.max(0.8, Math.min(3.35, activeLogo?.ratio || 2));
+  const cardWidth = Math.round(160 * visibleRatio + 30);
+  const style = { "--sponsor-card-width": `${cardWidth}px` } as CSSProperties;
+  return <div className={styles.card} style={style}>
+    {sponsor.logoUrl ? <img className={styles.logo} src={activeLogo?.source || sponsor.logoUrl} alt={`Logo von ${sponsor.name}`} /> : <span className={styles.name}>{sponsor.name}</span>}
   </div>;
 }
