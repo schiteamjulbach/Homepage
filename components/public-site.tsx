@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {Dialog,DialogContent,DialogHeader,DialogTitle} from "@/components/ui/dialog";
 import {SponsorCard} from "@/components/sponsor-card";
 import { LogoIntro } from "@/components/logo-intro";
+import detailStyles from "@/components/event-detail.module.css";
 
 type View = "events" | "sponsors" | "about" | "detail" | "signup" | "success" | "login" | "admin";
 
@@ -101,6 +102,42 @@ const boardRoleOrder=["obmann","obmann stv","kassier","schriftführer","schriftf
 function boardRoleRank(role:string){const rank=boardRoleOrder.indexOf(role.trim().toLocaleLowerCase('de-AT').replaceAll('.','').replace(/\s+/g,' '));return rank<0?boardRoleOrder.length:rank;}
 function AboutPage({board}:{board:BoardMember[]}){const orderedBoard=[...board].sort((left,right)=>boardRoleRank(left.role)-boardRoleRank(right.role));return <main className="about-page"><section className="sponsors-hero about-hero"><span className="eyebrow light"><Users size={17}/> GEMEINSAM FÜR DEN VEREIN</span><h1>Unser Vorstand.<br/><em>Ein starkes Team.</em></h1><p>Die Menschen hinter dem Schiteam Julbach – mit viel Engagement für den Sport, den Nachwuchs und unsere Gemeinschaft.</p></section><section className="board-section" aria-labelledby="board-title"><div className="sponsors-heading"><span className="eyebrow"><Users size={17}/> SCHITEAM JULBACH</span><h2 id="board-title">Unser Vorstand</h2><p>Das Team, das unseren Verein organisiert und mit Leidenschaft weiterentwickelt.</p></div>{board.length?<div className="board-grid">{orderedBoard.map(member=><BoardCard key={member.id} member={member}/>)}</div>:<div className="sponsor-empty"><Users/><strong>Unser Vorstand wird hier vorgestellt.</strong><span>Die Mitglieder können jederzeit im Adminbereich ergänzt werden.</span></div>}</section></main>}
 
-function EventDetail({event,back,signup}:{event:EventItem;back:()=>void;signup:()=>void}){const disabled=["Ausgebucht","Anmeldung geschlossen","Anmeldung startet bald"].includes(event.status);return <main className="detail-page"><button className="back-link" onClick={back}><ArrowLeft size={18}/> Alle Veranstaltungen</button><section className="detail-hero"><img src={event.imageUrl||"/schiteam-momente.jpeg"} alt="Schiteam Julbach beim Skifahren" style={{objectPosition:event.imagePosition}}/><div className="detail-overlay"><PublicRegistrationStatus status={event.status}/><h1>{event.title}</h1><div className="detail-meta"><span><CalendarDays/>{event.dateLong}</span><span><MapPin/>{event.place}</span></div></div></section><section className="detail-layout"><article><span className="eyebrow">DARUM GEHT’S</span><h2>{event.detailHeading||"Gemeinsam besser Ski fahren."}</h2><p style={{whiteSpace:"pre-line"}}>{event.description}</p><h3>Wichtige Informationen</h3><ul className="info-list">{event.info.map(i=><li key={i}><Check size={18}/>{i}</li>)}</ul></article><aside className="signup-box"><span className="eyebrow">ANMELDUNG</span><h3>{disabled?"Anmeldung noch nicht geöffnet":"Jetzt Platz sichern"}</h3><p>{disabled?"Die Anmeldung ist derzeit nicht möglich.":event.showSpots===false||!event.spots?"Hier kannst du dich für die Veranstaltung anmelden.":`Aktuell sind noch ${event.spots} Plätze verfügbar.`}</p><Button disabled={disabled} onClick={signup}>Jetzt anmelden<ArrowRight/></Button><small>Die Anmeldung dauert ca. 2 Minuten.</small></aside></section></main>}
+function EventDetail({event,back,signup}:{event:EventItem;back:()=>void;signup:()=>void}){
+ const disabled=["Ausgebucht","Anmeldung geschlossen","Anmeldung startet bald"].includes(event.status);
+ return <main className={detailStyles.page}>
+  <button className={detailStyles.backLink} onClick={back}><ArrowLeft size={18}/> Alle Veranstaltungen</button>
+  <section className={detailStyles.hero} aria-labelledby="event-detail-title">
+   <div className={detailStyles.heroCopy}>
+    <PublicRegistrationStatus status={event.status}/>
+    <h1 id="event-detail-title">{event.title}</h1>
+    <p>{event.description}</p>
+    <div className={detailStyles.keyFacts}>
+     <span><CalendarDays aria-hidden="true"/><small>Termin</small><strong>{event.dateLong}</strong></span>
+     <span><MapPin aria-hidden="true"/><small>Treffpunkt</small><strong>{event.place}</strong></span>
+    </div>
+   </div>
+   <figure className={detailStyles.heroImage}>
+    <img src={event.imageUrl||"/schiteam-momente.jpeg"} alt={`Schiteam Julbach bei ${event.title}`} style={{objectPosition:event.imagePosition}}/>
+    <span aria-hidden="true">26/27</span>
+   </figure>
+  </section>
+  <section className={detailStyles.information} aria-labelledby="event-information-title">
+   <div className={detailStyles.informationIntro}>
+    <span>Veranstaltungsinfo</span>
+    <h2 id="event-information-title">{event.detailHeading||"Gemeinsam besser Ski fahren."}</h2>
+    <p>{event.description}</p>
+   </div>
+   <aside className={detailStyles.registrationCard}>
+    <span>Anmeldung</span>
+    <h2>{disabled?"Anmeldung derzeit geschlossen":"Deinen Platz sichern."}</h2>
+    <p>{disabled?"Die Anmeldung ist derzeit nicht möglich.":event.showSpots===false||!event.spots?"Die Anmeldung ist jetzt möglich.":`Noch ${event.spots} Plätze verfügbar.`}</p>
+    <Button className={detailStyles.registrationAction} disabled={disabled} onClick={signup}>{disabled?"Noch nicht verfügbar":"Jetzt anmelden"}<ArrowRight aria-hidden="true"/></Button>
+    <small><Clock3 aria-hidden="true"/> Die Anmeldung dauert etwa 2 Minuten.</small>
+   </aside>
+   <h3 className={detailStyles.srOnly}>Wichtige Informationen</h3>
+   <ul className={detailStyles.infoList}>{event.info.map(item=><li key={item}><Check aria-hidden="true"/>{item}</li>)}</ul>
+  </section>
+ </main>
+}
 
 function Success({event,done}:{event:EventItem;done:()=>void}){const waiting=event.status==="Warteliste";return <main className="success-page"><div className={waiting?"success-icon waiting":"success-icon"}>{waiting?<Clock3/>:<Check/>}</div><span className="eyebrow">{waiting?"WARTELISTE":"ERFOLGREICH ANGEMELDET"}</span><h1>{waiting?"Du stehst auf der Warteliste.":"Schön, dass du dabei bist!"}</h1><p>{waiting?`Wir haben deine Anmeldung für ${event.title} aufgenommen. Dein Platz auf der Warteliste ist gespeichert.`:`Deine Anmeldung für ${event.title} wurde erfolgreich aufgenommen.`}</p><p>Weitere Informationen zu deiner Teilnahme erhältst du per E-Mail. Bitte prüfe daher regelmäßig dein Postfach und auch deinen Spam-Ordner.</p><div className="confirmation-card"><div><CalendarDays/><span><small>Termin</small>{event.dateLong}</span></div><div><MapPin/><span><small>Ort</small>{event.place}</span></div><div><Mail/><span><small>Bestätigung</small>Anmeldung dauerhaft gespeichert</span></div></div><Button onClick={done}>Zur Veranstaltungsübersicht</Button></main>}
