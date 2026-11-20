@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SHARE_IMAGE, SITE_URL, organizationJsonLd, serializeJsonLd } from "@/lib/seo";
+import { getPublicPlatform } from "@/lib/public-platform";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -29,15 +30,27 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { contact } = await getPublicPlatform();
+  const organization = {
+    ...organizationJsonLd,
+    email: contact.email,
+    address: {
+      ...organizationJsonLd.address,
+      streetAddress: contact.street || undefined,
+      addressLocality: contact.city,
+      postalCode: contact.postalCode,
+      addressRegion: contact.region,
+    },
+  };
   return (
     <html lang="de">
       <body className="antialiased">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(organization) }} />
         {children}
       </body>
     </html>

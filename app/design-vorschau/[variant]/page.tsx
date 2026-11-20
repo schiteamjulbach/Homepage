@@ -40,6 +40,7 @@ export default async function DesignPreviewPage({
         sponsors: [],
         board: [],
         legal: { privacy: "", imprint: "" },
+        contact: { email: "schiteam.julbach@gmail.com", street: "", postalCode: "4162", city: "Julbach", region: "Oberösterreich" },
       };
     }
   }

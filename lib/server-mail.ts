@@ -15,11 +15,11 @@ export async function registrationMail(id:string):Promise<'sent'|'not_configured
     const settings=await database().prepare("SELECT value FROM settings WHERE key='emails'").first<{value:string}>();
     const courseSettings=await database().prepare('SELECT value FROM settings WHERE key=?').bind('emails_event_'+person.event_id).first<{value:string}>();
     const emails=courseSettings?JSON.parse(courseSettings.value):settings?JSON.parse(settings.value):{},details=event?JSON.parse(event.data):{};
-    const kind=person.status==='confirmed'?'success':'wait';
+    const kind=person.status==='cancelled'?'cancelled':person.status==='confirmed'?'success':'wait';
     const placeholders:Record<string,string>={vorname:person.first_name,nachname:person.last_name,veranstaltung:details.title||'',datum:details.dateLong||''};
     const render=(value:string)=>value.replace(/\{\{(vorname|nachname|veranstaltung|datum)\}\}/g,(_,key)=>placeholders[key]);
-    const subject=render(emails[kind+'Subject']??(kind==='success'?'Anmeldung erfolgreich – {{veranstaltung}}':'Warteliste – {{veranstaltung}}'));
-    const message=render(emails[kind]??(kind==='success'?'Hallo {{vorname}}, deine Anmeldung für {{veranstaltung}} wurde bestätigt.':'Hallo {{vorname}}, du stehst auf der Warteliste für {{veranstaltung}}.'));
+    const subject=render(emails[kind+'Subject']??(kind==='success'?'Anmeldung erfolgreich - {{veranstaltung}}':kind==='cancelled'?'Absage - {{veranstaltung}}':'Warteliste - {{veranstaltung}}'));
+    const message=render(emails[kind]??(kind==='success'?'Hallo {{vorname}}, deine Anmeldung für {{veranstaltung}} wurde bestätigt.':kind==='cancelled'?'Hallo {{vorname}}, deine Anmeldung für {{veranstaltung}} wurde abgesagt.':'Hallo {{vorname}}, du stehst auf der Warteliste für {{veranstaltung}}.'));
     const boundary='julbach_'+crypto.randomUUID();
     const parts=[`From: ${process.env.GMAIL_SENDER}`,`To: ${person.email.replace(/[\r\n]/g,'')}`,`Subject: ${header(subject)}`,'MIME-Version: 1.0',`Content-Type: multipart/mixed; boundary="${boundary}"`,'',`--${boundary}`,'Content-Type: text/plain; charset=UTF-8','Content-Transfer-Encoding: base64','',wrap(base64(message))];
     for(const file of (emails[kind+'Attachments']||[]) as EmailAttachment[]){
